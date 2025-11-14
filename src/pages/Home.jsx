@@ -12,7 +12,7 @@ const Home = ({ initialMovies }) => {
         totalResults
     } = useFilterSearch(initialMovies);
 
-    const allGenres = [...new Set(initialMovies.flatMap(m => m.genero))];
+    const allGenres = [...new Set(initialMovies.map(m => m.gen))];
     const allCategories = [...new Set(initialMovies.map(m => m.categoria))];
 
     return (

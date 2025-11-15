@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
 import Login from '../pages/Login';
+import styles from './Header.module.css';
 
 const Header = () => {
     const { user, logout, isAuthenticated } = useAuth();
@@ -16,16 +17,16 @@ const Header = () => {
     console.log(user);
 
     return (
-        <header style={{ display: 'flex', justifyContent: 'space-between', padding: '10px 20px' }}>
+        <header>
             <Link to="/" style={{ textDecoration: 'none', color: 'inherit' }}>
-                <h1>Trailerflix</h1>
+                <h1 className={styles.logo}>TRAILERFLIX</h1>
             </Link>
 
-            <nav>
+            <nav className={styles.nav}>
                 {isAuthenticated ? (
-                    <div className="login-container">
-                        <span style={{ marginRight: '15px' }}>{message + user.nombre}</span>
-                        <button onClick={logout}>Cerrar Sesión</button>
+                    <div className={styles.userInfo}>
+                        <span className={styles.userNameDisplay}>{message + user.nombre}</span>
+                        <button className={styles.logoutBtn} onClick={logout}>Cerrar Sesión</button>
                     </div>
                 ) : (
                     <Login />

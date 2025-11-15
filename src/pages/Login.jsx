@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';
+import styles from './Login.module.css';
+
 
 const Login = () => {
     const [username, setUsername] = useState('');
@@ -47,24 +49,25 @@ const Login = () => {
     };
 
     return (
-        <div className="login-container">
-            <h2>Iniciar Sesión</h2>
-            <form onSubmit={handleLogin}>
-                <input
-                    type="text"
-                    placeholder="Usuario"
-                    value={username}
-                    onChange={(e) => setUsername(e.target.value)}
-                    required
-                />
-                <input
-                    type="password"
-                    placeholder="Contraseña"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                />
-                <button type="submit">Ingresar</button>
+        <div className={styles[`login-container`]}>
+            <form className={styles.loginForm} onSubmit={handleLogin}>
+                <div className={styles.formGroup}>
+                    <input
+                        type="text"
+                        placeholder="Usuario"
+                        value={username}
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                    <input
+                        type="password"
+                        placeholder="Contraseña"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <button className={styles.logoutBtn} type="submit">Ingresar</button>
             </form>
             {error && <p style={{ color: 'red' }}>{error}</p>}
         </div>

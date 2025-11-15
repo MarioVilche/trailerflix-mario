@@ -1,0 +1,19 @@
+.errorContainer {
+    text-align: center;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 20%;
+}
+
+.errorCode {
+    font-size: 150px;
+    font-weight: 700;
+    color: red;
+    margin: 0;
+    line-height: 1;
+    letter-spacing: 10px;
+    text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}

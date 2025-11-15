@@ -1,5 +1,6 @@
 import MovieCard from '../components/MovieCard';
 import useFilterSearch from '../hooks/useFilterSearch';
+import styles from './Home.module.css';
 
 const Home = ({ initialMovies }) => {
     const {
@@ -12,65 +13,115 @@ const Home = ({ initialMovies }) => {
         totalResults
     } = useFilterSearch(initialMovies);
 
-    const allGenres = [...new Set(initialMovies.map(m => m.gen))];
+    const allGenres = [
+        ...new Set(
+            initialMovies.flatMap(m => Array.isArray(m.gen) ? m.gen : [m.gen])
+        )
+    ].sort((a, b) => a.localeCompare(b, 'es', { sensitivity: 'base' }));
+
     const allCategories = [...new Set(initialMovies.map(m => m.categoria))];
 
+    const resultsCountVisible = activeFilters.genero.length > 0 || activeFilters.categoria.length > 0;
+
+    const genresFromResults = allGenres.filter(g =>
+        filteredMovies.some(m => {
+            const mg = Array.isArray(m.gen) ? m.gen : [m.gen];
+            return mg.includes(g);
+        })
+    );
+
+    const genresToShow = activeFilters.genero.length > 0
+        ? activeFilters.genero.filter(g => genresFromResults.includes(g))
+        : genresFromResults;
+
+    const moviesByGenre = genresToShow.map(genre => ({
+        genre,
+        movies: filteredMovies.filter(m => {
+            const mg = Array.isArray(m.gene) ? m.gen : [m.gen];
+            return mg.includes(genre);
+        })
+    }));
+
     return (
-        <div style={{ padding: '20px' }}>
-            <input
-                type="text"
-                placeholder="Buscar por título, género o reparto..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                style={{ width: '100%', padding: '10px', margin: '10px 0' }}
-            />
+        <div>
+            <div className={styles.searchFiltersSection}>
+                <div className={styles.searchContainer}>
+                    <input className={styles.searchInput}
+                        type="text"
+                        placeholder="Buscar por título, género o reparto..."
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                    />
 
-            <div style={{ margin: '10px 0' }}>
+                    <span className={styles.searchIcon}>🔍</span>
+                </div>
 
-                <h4>Géneros:</h4>
-                {allGenres.map(genre => (
-                    <button
-                        key={genre}
-                        onClick={() => toggleFilter('genero', genre)}
-                        style={{
-                            backgroundColor: activeFilters.genero.includes(genre) ? 'green' : 'gray',
-                            color: 'white',
-                            margin: '5px'
-                        }}
-                    >
-                        {genre}
-                    </button>
-                ))}
+                <div className={styles.filtersContainer}>
 
-                <h4>Categorías:</h4>
-                {allCategories.map(cat => (
-                    <button
-                        key={cat}
-                        onClick={() => toggleFilter('categoria', cat)}
-                        style={{
-                            backgroundColor: activeFilters.categoria.includes(cat) ? 'blue' : 'gray',
-                            color: 'white',
-                            margin: '5px'
-                        }}
-                    >
-                        {cat}
-                    </button>
-                ))}
+                    <div>
+                        <div className={styles.filterGroup}>
+                            <div>
+                                <h4 className={styles.filterLabel}>Géneros:</h4>
+                            </div>
+                            <div className={styles.filterBtnDirection}>
+                                {allGenres.map(genre => (
+                                    <button className={`${styles.filterBtn} ${activeFilters.genero.includes(genre) ? styles.active : ''}`}
+                                        key={genre}
+                                        onClick={() => toggleFilter('genero', genre)}>
+                                        {genre}
+                                    </button>
+                                ))}
+                            </div>
+                        </div>
 
-                <button onClick={clearFilters} style={{ marginLeft: '20px', backgroundColor: 'red', color: 'white' }}>
-                    Limpiar Filtros
-                </button>
+                        <div className={styles.filterGroup}>
+                            <div>
+                                <h4 className={styles.filterLabel}>Categorías:</h4>
+                            </div>
+                            <div className={styles.filterBtnDirection}>
+                                {allCategories.map(cat => (
+                                    <button className={`${styles.filterBtn} ${activeFilters.categoria.includes(cat) ? styles.active : ''}`}
+                                        key={cat}
+                                        onClick={() => toggleFilter('categoria', cat)}
+                                    >
+                                        {cat}
+                                    </button>
+                                ))}
+
+                                <button className={styles.clearBtn} onClick={clearFilters}>
+                                    Limpiar Filtros
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h3 className={`${styles.resultsCount} ${resultsCountVisible ? styles.resultsCountVisible : ''}`}>Se encontraron **{totalResults}** resultados</h3>
+
             </div>
 
-            <h3>Se encontraron **{totalResults}** resultados</h3>
-
-            <div className="movie-list" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(200px, 1fr))', gap: '20px' }}>
-                {totalResults > 0 ? (
-                    filteredMovies.map((movie) => (
-                        <MovieCard key={movie.id} movie={movie} />
+            <div className={styles.container}>
+                {moviesByGenre.length > 0 ? (
+                    moviesByGenre.map(section => (
+                        <div key={section.genre}>
+                            <h2 className={styles.genero}>{section.genre}</h2>
+                            <div className={styles.movieContainer}>
+                                {section.movies.map(movie => (
+                                    <MovieCard key={movie.id} movie={movie} />
+                                ))}
+                            </div>
+                        </div>
                     ))
                 ) : (
-                    <p>No se encontraron resultados que coincidan con la búsqueda/filtros.</p>
+                    <div className={styles.movieContainer}>
+                        {totalResults > 0 ? (
+                            filteredMovies.map((movie) => (
+                                <MovieCard key={movie.id} movie={movie} />
+                            ))
+                        ) : (
+                            <p>No se encontraron resultados que coincidan con la búsqueda/filtros.</p>
+                        )}
+                    </div>
                 )}
             </div>
         </div>

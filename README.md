@@ -45,8 +45,8 @@ La aplicación se abrirá en tu navegador en `http://localhost:[puerto]` (genera
 
 Aquí puedes ver algunas capturas de pantalla de la aplicación.
 
-![Home](assets/pagina-principal.png)
+![Home](public/readmeImg/pagina-principal.png)
 
-![MovieDetails](assets/detalles-de-pelicula.png)
+![MovieDetails](public/readmeImg/detalles-de-pelicula.png)
 
 ---

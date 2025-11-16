@@ -31,8 +31,6 @@ El proyecto utiliza **pnpm** como gestor de paquetes. Sigue estos pasos para con
 ## ▶️ Ejecución
 
 Una vez que las dependencias estén instaladas, puedes ejecutar la aplicación con **Vite**:
-
-
     ```bash
     pnpm run dev
     ```

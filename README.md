@@ -12,7 +12,7 @@ El proyecto utiliza **pnpm** como gestor de paquetes. Sigue estos pasos para con
 
 1.  **Clonar el Repositorio:**
     ```bash
-    git clone [https://github.com/MarioVilche/trailerflix-mario.git](https://github.com/MarioVilche/trailerflix-mario.git)
+    git clone https://github.com/MarioVilche/trailerflix-mario.git
     ```
 
 2.  **Acceder al Directorio del Proyecto:**

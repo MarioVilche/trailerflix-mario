@@ -2,7 +2,7 @@
 
 ## Descripción del Proyecto
 
-[*Trailerflix* es un visualizardor de tráilers de películas y series inspirado en Netflix, esta creado con Vite y pnpm.]
+*Trailerflix* es un visualizardor de tráilers de películas y series inspirado en Netflix, esta creado con Vite y pnpm.
 
 ---
 
@@ -31,10 +31,9 @@ El proyecto utiliza **pnpm** como gestor de paquetes. Sigue estos pasos para con
 ## ▶️ Ejecución
 
 Una vez que las dependencias estén instaladas, puedes ejecutar la aplicación con **Vite**:
-
-    ```bash
-    pnpm run dev
-    ```
+```bash
+pnpm  run  dev
+```
 
 La aplicación se abrirá en tu navegador en `http://localhost:[puerto]` (generalmente `3000` o `5173`).
 

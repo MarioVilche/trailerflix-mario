@@ -1,11 +1,11 @@
 .errorContainer {
-    text-align: center;
-    padding: 20px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
-    padding-top: 20%;
+    justify-content: center;
+    min-height: 80vh;
+    text-align: center;
+    padding: 20px;
 }
 
 .errorCode {
@@ -16,4 +16,63 @@
     line-height: 1;
     letter-spacing: 10px;
     text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+}
+
+.filmIcon {
+    font-size: 80px;
+    margin: 20px 0;
+    opacity: 0.3;
+}
+
+.errorMessage {
+    font-size: 32px;
+    color: white;
+    margin: 20px 0;
+    letter-spacing: 3px;
+    font-weight: 400;
+}
+
+.errorDescription {
+    font-size: 18px;
+    color: #cccccc;
+    margin: 20px 0 40px 0;
+    max-width: 600px;
+    letter-spacing: 1.5px;
+    line-height: 1.6;
+}
+
+.backHomeBtn {
+    background-color: red;
+    color: white;
+    padding: 15px 40px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 2px;
+    transition: all 0.3s ease;
+    display: inline-block;
+    border: 2px solid red;
+    text-decoration: none;
+}
+
+.backHomeBtn:hover {
+    background-color: transparent;
+    color: red;
+    transform: scale(1.05);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .errorCode {
+        font-size: 100px;
+    }
+
+    .errorMessage {
+        font-size: 24px;
+    }
+
+    .errorDescription {
+        font-size: 16px;
+    }
 }

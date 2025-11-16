@@ -1,16 +1,52 @@
-# React + Vite
+# Trailerflix (Mario Vilche) 🚀
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Descripción del Proyecto
 
-Currently, two official plugins are available:
+[*Trailerflix* es un visualizardor de tráilers de películas y series inspirado en Netflix, esta creado con Vite y pnpm.]
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## React Compiler
+## 🛠️ Instrucciones de Instalación
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+El proyecto utiliza **pnpm** como gestor de paquetes. Sigue estos pasos para configurar el entorno local:
 
-## Expanding the ESLint configuration
+1.  **Clonar el Repositorio:**
+    ```bash
+    git clone [https://github.com/MarioVilche/trailerflix-mario.git](https://github.com/MarioVilche/trailerflix-mario.git)
+    ```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2.  **Acceder al Directorio del Proyecto:**
+    ```bash
+    cd trailerflix-mario
+    ```
+
+3.  **Instalar Dependencias:**
+    Utiliza `pnpm install` para descargar todas las dependencias necesarias:
+    ```bash
+    pnpm install
+    ```
+
+---
+
+## ▶️ Ejecución
+
+Una vez que las dependencias estén instaladas, puedes ejecutar la aplicación con **Vite**:
+
+
+    ```bash
+    pnpm run dev
+    ```
+
+La aplicación se abrirá en tu navegador en `http://localhost:[puerto]` (generalmente `3000` o `5173`).
+
+---
+
+## 🖼️ Vistas de la Aplicación
+
+Aquí puedes ver algunas capturas de pantalla de la aplicación.
+
+![Home](assets/pagina-principal.png)
+
+![MovieDetails](assets/detalles-de-pelicula.png)
+
+---

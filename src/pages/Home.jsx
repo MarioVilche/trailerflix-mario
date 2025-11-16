@@ -2,6 +2,8 @@ import MovieCard from '../components/MovieCard';
 import useFilterSearch from '../hooks/useFilterSearch';
 import styles from './Home.module.css';
 
+// Página principal: controla búsqueda y filtros y organiza la salida por secciones de género
+
 const Home = ({ initialMovies }) => {
     const {
         searchTerm,
@@ -13,6 +15,7 @@ const Home = ({ initialMovies }) => {
         totalResults
     } = useFilterSearch(initialMovies);
 
+    // Obtiene todos los géneros únicos y los ordena alfabéticamente
     const allGenres = [
         ...new Set(
             initialMovies.flatMap(m => Array.isArray(m.gen) ? m.gen : [m.gen])
@@ -21,8 +24,9 @@ const Home = ({ initialMovies }) => {
 
     const allCategories = [...new Set(initialMovies.map(m => m.categoria))];
 
-    const resultsCountVisible = activeFilters.genero.length > 0 || activeFilters.categoria.length > 0;
+    const resultsCountVisible = activeFilters.genero.length > 0 || activeFilters.categoria.length > 0 || searchTerm.trim().length > 0;
 
+    // Géneros que aparecen en los resultados filtrados
     const genresFromResults = allGenres.filter(g =>
         filteredMovies.some(m => {
             const mg = Array.isArray(m.gen) ? m.gen : [m.gen];
@@ -30,10 +34,13 @@ const Home = ({ initialMovies }) => {
         })
     );
 
+    // Si hay géneros seleccionados muestra solo esas secciones, si no muestra todas las de los resultados
     const genresToShow = activeFilters.genero.length > 0
         ? activeFilters.genero.filter(g => genresFromResults.includes(g))
         : genresFromResults;
 
+
+    // Lista de secciones con su array de películas para renderizar
     const moviesByGenre = genresToShow.map(genre => ({
         genre,
         movies: filteredMovies.filter(m => {

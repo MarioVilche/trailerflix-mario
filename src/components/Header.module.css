@@ -35,6 +35,10 @@
     padding: 0 0 0 10px;
 }
 
+.logoLink {
+    text-decoration: none;
+}
+
 .logoutBtn {
     padding: 10px 20px;
     font-size: 13px;
@@ -62,4 +66,23 @@
 .logoutBtn:active {
     background-color: #cc0000;
     box-shadow: 0 1px 4px rgba(255, 0, 0, 0.3);
+}
+
+@media (max-width: 768px) {
+    .userInfo {
+        flex-direction: column;
+        gap: 8px;
+        padding: 10px 15px;
+        font-size: 12px;
+    }
+
+    .userNameDisplay {
+        font-size: 12px;
+    }
+
+    .logo {
+        font-size: 32px;
+        letter-spacing: 2px;
+    }
+
 }

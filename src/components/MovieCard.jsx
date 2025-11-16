@@ -4,18 +4,21 @@ import styles from './MovieCard.module.css';
 const MovieCard = ({ movie }) => {
     const navigate = useNavigate();
 
+    // Al hacer click en la tarjeta navegamos a /movie/:id
     const handleClick = () => {
         navigate(`/movie/${movie.id}`);
     };
 
     return (
-        <div className={styles.card} onClick={handleClick} style={{ cursor: 'pointer' }}>
-            <div className={styles['card-picture']}>
+        // El div entero es clickeable para mejorar la experiencia en móviles/desktop.
+        <div className={styles.card} onClick={handleClick}>
+            <div className={styles.cardPicture}>
+                {/* Imagen tomada desde la carpeta /posters usando el id de la película */}
                 <img src={`/posters/${movie.id}.jpg`} alt={movie.titulo} />
             </div>
-            <div className={styles['card-bottom']}>
-                <h3 className={styles['card-bottom-title']}>{movie.titulo}</h3>
-                <p className={styles['white-text']}>Categoría: {movie.categoria}</p>
+            <div className={styles.cardBottom}>
+                <h3 className={styles.cardBottomTitle}>{movie.titulo}</h3>
+                <p className={styles['white-text']}>{movie.categoria}</p>
             </div>
         </div>
     );

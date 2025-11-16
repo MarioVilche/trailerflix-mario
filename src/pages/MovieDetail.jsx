@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom';
-import styles from './MovieDetail.module.css';
+import styles from '../styles/MovieDetail.module.css';
 
 const MovieDetail = ({ movies }) => {
     const { id } = useParams();

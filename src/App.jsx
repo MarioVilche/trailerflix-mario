@@ -7,7 +7,6 @@ import Login from './pages/Login';
 import Header from './components/Header';
 
 
-
 export default function App() {
 
   // Estados para las películas, estado de carga y posibles errores

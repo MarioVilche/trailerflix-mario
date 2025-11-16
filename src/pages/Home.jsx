@@ -1,6 +1,6 @@
 import MovieCard from '../components/MovieCard';
 import useFilterSearch from '../hooks/useFilterSearch';
-import styles from './Home.module.css';
+import styles from '../styles/Home.module.css';
 
 // Página principal: controla búsqueda y filtros y organiza la salida por secciones de género
 

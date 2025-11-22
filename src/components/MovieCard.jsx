@@ -14,7 +14,7 @@ const MovieCard = ({ movie }) => {
         <div className={styles.card} onClick={handleClick}>
             <div className={styles.cardPicture}>
                 {/* Imagen tomada desde la carpeta /posters usando el id de la película */}
-                <img src={`/posters/${movie.id}.jpg`} alt={movie.titulo} />
+                <img src={movie.poster.replace(/^\.\//, '/')} alt={movie.titulo} />
             </div>
             <div className={styles.cardBottom}>
                 <h3 className={styles.cardBottomTitle}>{movie.titulo}</h3>

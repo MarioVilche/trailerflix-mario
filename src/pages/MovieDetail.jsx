@@ -29,7 +29,7 @@ const MovieDetail = ({ movies }) => {
             <button className={styles.backBtn} onClick={() => navigate('/')}>← Volver al catálogo</button>
             <div className={styles.movieDetails}>
                 <div className={styles.moviePoster}>
-                    <img src={`/posters/${movie.id}.jpg`} alt={movie.titulo} />
+                    <img src={movie.poster.replace(/^\.\//, '/')} alt={movie.titulo} />
                 </div>
                 <div className={styles.movieInfo}>
                     <h2>{movie.titulo}</h2>

@@ -1,11 +1,13 @@
+import ButtonUp from '../components/ButtonUp';
 import MovieCard from '../components/MovieCard';
-import useFilterSearch from '../hooks/useFilterSearch';
+import Filters from '../components/Filters';
 import styles from '../styles/Home.module.css';
-import React, { useEffect, useRef } from 'react';
+import useFilterSearch from '../hooks/useFilterSearch';
 
 // Página principal: controla búsqueda y filtros y organiza la salida por secciones de género
 
 const Home = ({ initialMovies }) => {
+
     const {
         searchTerm,
         setSearchTerm,
@@ -25,8 +27,6 @@ const Home = ({ initialMovies }) => {
 
     const allCategories = [...new Set(initialMovies.map(m => m.categoria))];
 
-    const resultsCountVisible = activeFilters.genero.length > 0 || activeFilters.categoria.length > 0 || searchTerm.trim().length > 0;
-
     // Géneros que aparecen en los resultados filtrados
     const genresFromResults = allGenres.filter(g =>
         filteredMovies.some(m => {
@@ -40,100 +40,31 @@ const Home = ({ initialMovies }) => {
         ? activeFilters.genero.filter(g => genresFromResults.includes(g))
         : genresFromResults;
 
-
     // Lista de secciones con su array de películas para renderizar
     const moviesByGenre = genresToShow.map(genre => ({
         genre,
         movies: filteredMovies.filter(m => {
-            const mg = Array.isArray(m.gene) ? m.gen : [m.gen];
+            const mg = Array.isArray(m.gen) ? m.gen : [m.gen];
             return mg.includes(genre);
         })
     }));
 
-    // ref para el botón "ir al inicio" y manejo seguro de eventos
-    const irAInicioRef = useRef(null);
-
-    useEffect(() => {
-        const buttonUp = irAInicioRef.current;
-        const handleScroll = () => {
-            const scroll1 = document.documentElement.scrollTop;
-            if (!buttonUp) return;
-            buttonUp.style.bottom = scroll1 > 200 ? '15px' : '-75px';
-        };
-        const handleClick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
-
-        window.addEventListener('scroll', handleScroll);
-        if (buttonUp) buttonUp.addEventListener('click', handleClick);
-
-        // cleanup
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-            if (buttonUp) buttonUp.removeEventListener('click', handleClick);
-        };
-    }, []);
-
     return (
         <div>
 
-            <div ref={irAInicioRef} className={styles.irAInicio}>
-                <img src='/icons/up-arrow.png'></img>
-            </div>
+            <ButtonUp />
 
-            <div className={styles.searchFiltersSection}>
-                <div className={styles.searchContainer}>
-                    <input className={styles.searchInput}
-                        type="text"
-                        placeholder="Buscar por título, género o reparto..."
-                        value={searchTerm}
-                        onChange={(e) => setSearchTerm(e.target.value)}
-                    />
-
-                    <span className={styles.searchIcon}>🔍</span>
-                </div>
-
-                <div className={styles.filtersContainer}>
-
-                    <div>
-                        <div className={styles.filterGroup}>
-                            <div>
-                                <h4 className={styles.filterLabel}>Géneros:</h4>
-                            </div>
-                            <div className={styles.filterBtnDirection}>
-                                {allGenres.map(genre => (
-                                    <button className={`${styles.filterBtn} ${activeFilters.genero.includes(genre) ? styles.active : ''}`}
-                                        key={genre}
-                                        onClick={() => toggleFilter('genero', genre)}>
-                                        {genre}
-                                    </button>
-                                ))}
-                            </div>
-                        </div>
-
-                        <div className={styles.filterGroup}>
-                            <div>
-                                <h4 className={styles.filterLabel}>Categorías:</h4>
-                            </div>
-                            <div className={styles.filterBtnDirection}>
-                                {allCategories.map(cat => (
-                                    <button className={`${styles.filterBtn} ${activeFilters.categoria.includes(cat) ? styles.active : ''}`}
-                                        key={cat}
-                                        onClick={() => toggleFilter('categoria', cat)}
-                                    >
-                                        {cat}
-                                    </button>
-                                ))}
-
-                                <button className={styles.clearBtn} onClick={clearFilters}>
-                                    Limpiar Filtros
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                <h3 className={`${styles.resultsCount} ${resultsCountVisible ? styles.resultsCountVisible : ''}`}>Se encontraron **{totalResults}** resultados</h3>
-
-            </div>
+            {/* pasa los handlers/estados al componente Filters para que solo renderice la UI */}
+            <Filters
+                allGenres={allGenres}
+                allCategories={allCategories}
+                searchTerm={searchTerm}
+                setSearchTerm={setSearchTerm}
+                activeFilters={activeFilters}
+                toggleFilter={toggleFilter}
+                clearFilters={clearFilters}
+                totalResults={totalResults}
+            />
 
             <div className={styles.container}>
                 {moviesByGenre.length > 0 ? (

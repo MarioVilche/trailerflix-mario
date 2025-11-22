@@ -30,7 +30,7 @@ const useFilterSearch = (initialMovies) => {
         if (genero.length > 0) {
             // Si hay géneros seleccionados, mantenemos las películas que tengan al menos uno de ellos
             results = results.filter(movie =>
-                genero.some(g => movie.genero.includes(g))
+                genero.some(g => movie.gen.includes(g))
             );
         }
 

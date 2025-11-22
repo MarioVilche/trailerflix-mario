@@ -1,6 +1,7 @@
 import MovieCard from '../components/MovieCard';
 import useFilterSearch from '../hooks/useFilterSearch';
 import styles from '../styles/Home.module.css';
+import React, { useEffect, useRef } from 'react';
 
 // Página principal: controla búsqueda y filtros y organiza la salida por secciones de género
 
@@ -49,8 +50,35 @@ const Home = ({ initialMovies }) => {
         })
     }));
 
+    // ref para el botón "ir al inicio" y manejo seguro de eventos
+    const irAInicioRef = useRef(null);
+
+    useEffect(() => {
+        const buttonUp = irAInicioRef.current;
+        const handleScroll = () => {
+            const scroll1 = document.documentElement.scrollTop;
+            if (!buttonUp) return;
+            buttonUp.style.bottom = scroll1 > 200 ? '15px' : '-75px';
+        };
+        const handleClick = () => window.scrollTo({ top: 0, behavior: 'smooth' });
+
+        window.addEventListener('scroll', handleScroll);
+        if (buttonUp) buttonUp.addEventListener('click', handleClick);
+
+        // cleanup
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+            if (buttonUp) buttonUp.removeEventListener('click', handleClick);
+        };
+    }, []);
+
     return (
         <div>
+
+            <div ref={irAInicioRef} className={styles.irAInicio}>
+                <img src='/icons/up-arrow.png'></img>
+            </div>
+
             <div className={styles.searchFiltersSection}>
                 <div className={styles.searchContainer}>
                     <input className={styles.searchInput}
